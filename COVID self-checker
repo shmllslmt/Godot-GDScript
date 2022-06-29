@@ -1,0 +1,50 @@
+extends Node
+
+func _ready():
+	var vaccine = true
+	var age = 30
+	var close_contact = true
+	var test = true
+	var symptom = "flu"
+	
+	checker(vaccine, age, close_contact, test, symptom)
+	
+func checker(vaccine, age, close_contact, test, symptom):
+	var risk: float = 50.0
+	var percentage: float = 0.0
+	
+	if(vaccine):
+		risk -= 50
+		print("Great, you are already vaccinated!")
+	else:
+		risk += 50
+		print("Please go and get vaccinated ASAP!")
+	
+	
+	if(age < 18 || age >= 65):
+		risk += 50
+		print("As you are ", age, " years old - you are in the high-risk category")
+	elif(age > 30 && age < 65):
+		risk += 30
+		print("As you are ", age, " years old - you are in the medium-risk category")
+	else:
+		risk += 15
+		print("As you are ", age, " years old - you are in the low-risk category")
+	
+	if(close_contact):
+		risk += 50
+		print("Please keep your social distance and wear mask at all times for FIVE (5) days from the last time you are in contact with a confirmed COVID case")
+	else:
+		risk += 10
+		print("You're good but keep your heads up nonetheless")
+	
+	if symptom in ["flu", "cough", "headache"]:
+		risk += 30
+		print("You got the symptoms! Please keep your social distance and wear mask at all times")
+	else:
+		risk += 10
+		print("You're good but keep your heads up nonetheless")
+	
+
+	percentage = (risk / 100.0) * 100.0
+	print("Your risk of being infected is ", percentage, "%")
